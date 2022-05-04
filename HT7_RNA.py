@@ -344,3 +344,65 @@ print ("Accuracy para el modelo con topología de de 2 capas con 5 neuronas en c
 print ("Precision:", metrics.precision_score(y_test,y_pred,average='weighted') )
 print ("Recall: ", metrics.recall_score(y_test,y_pred,average='weighted'))
 print("Matriz de confusión del modelo con topología de de 2 capas con 5 neuronas en cada una y una función lineal de activación", '\n',cm)
+
+#Modelo 2 Clasificación:
+mplC = MLPClassifier(random_state=123, hidden_layer_sizes = (10, 10), activation = 'tanh', max_iter=10000)
+start = timeit.default_timer()
+mplC.fit(X_train,y_train)
+end = timeit.default_timer()
+print('Tiempo de Fit para el modelo con topología de 2 capas con 10 neuronas en cada una y una función tangencial de activación: ',  end-start)
+
+y_predf = mplC.predict(X_train)
+start = timeit.default_timer()
+y_pred = mplC.predict(X_test)
+end = timeit.default_timer()
+print('Tiempo de predict del modelo con topología de 2 capas con 10 neuronas en cada una y una función tangencial de activación: ',  end-start)
+cm = confusion_matrix(y_test,y_pred)
+print ("Accuracy entrenamiento para el modelo con topología de 2 capas con 10 neuronas en cada una y una función tangencial de activación:",metrics.accuracy_score(y_train, y_predf))
+print ("Accuracy para el modelo con topología de de 2 capas con 10 neuronas en cada una y una función tangencial de activación:",metrics.accuracy_score(y_test, y_pred))
+print ("Precision:", metrics.precision_score(y_test,y_pred,average='weighted') )
+print ("Recall: ", metrics.recall_score(y_test,y_pred,average='weighted'))
+print("Matriz de confusión del modelo con topología de de 2 capas con 10 neuronas en cada una y una función tangencial de activación", '\n',cm)
+
+
+
+
+#Modelo 1 Regresión: Se utiliza un kernel poly con un grado de 3
+y = E.pop('SalePrice')
+X = E
+random.seed(123)
+
+X_train, X_test,y_train, y_test = train_test_split(X, y,test_size=0.3,train_size=0.7, random_state = 123)
+mplC = MLPRegressor(random_state=123, hidden_layer_sizes = (8,5), activation = 'identity', max_iter=10000)
+start = timeit.default_timer()
+mplC.fit(X_train,y_train)
+end = timeit.default_timer()
+print('Tiempo de Fit para el modelo de regresión con topología de 2 capas con 8 y 5 neuronas respectivamente y una función lineal de activación: ',  end-start)
+
+y_predf = mplC.predict(X_train)
+start = timeit.default_timer()
+y_pred = mplC.predict(X_test)
+end = timeit.default_timer()
+print('Tiempo de predict del modelo de regresión con topología de 2 capas con 8 y 5 neuronas respectivamente y una función lineal de activación: ',  end-start)
+#print ("MSE entrenamiento:",metrics.mean_squared_error(y_train, y_predf))
+#print ("MSE:",metrics.mean_squared_error(y_test, y_pred))
+print('R2 del predict del modelo de regresión con topología de 2 capas con 8 y 5 neuronas respectivamente y una función lineal de activación: ', metrics.r2_score(y_test, y_pred))
+
+# Se dejaron de eliminar las variables ,'TotalBsmtSF','1stFlrSF',
+
+#Modelo 3: Se varía el valor de C
+mplC = MLPRegressor(random_state=123, hidden_layer_sizes = (10,10,10), activation = 'relu', max_iter=10000)
+start = timeit.default_timer()
+mplC.fit(X_train,y_train)
+end = timeit.default_timer()
+print('Tiempo de Fit para el modelo de regresión con topología de 3 capas con 10 neuronas cada una y una función relu de activación: ',  end-start)
+
+y_predf = mplC.predict(X_train)
+start = timeit.default_timer()
+y_pred = mplC.predict(X_test)
+end = timeit.default_timer()
+print('Tiempo de predict del modelo de regresión con topología de 3 capas con 10 neuronas cada una y una función relu de activación: ',  end-start)
+#print('Tiempo de predict del modelo con topología de 3 capas con 10 neuronas en cada una y una función lineal de activación: ',  end-start)
+#print ("MSE entrenamiento:",metrics.mean_squared_error(y_train, y_predf))
+#print ("MSE:",metrics.mean_squared_error(y_test, y_pred))
+print('R2 del predict del modelo de regresión con topología de 3 capas con 10 neuronas cada una y una función relu de activación: ', metrics.r2_score(y_test, y_pred))
